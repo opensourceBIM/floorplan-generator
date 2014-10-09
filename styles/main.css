@@ -1,0 +1,44 @@
+body
+{
+	background-color:#444444;
+}
+
+/* By default, divs will stack vertically (and stretch horizontally). */
+div 
+{
+	/*border:1px solid magenta;*/
+	display:block;	
+}
+
+/* This constrains the entire page to fit it's contents. */
+div.container
+{
+	background-color:#222222;
+	display:inline-block;
+	width:1048px;
+}
+
+/* The main containers are just for organization, so they don't affect layout (besides basic stacking). */
+div.container, div.header, div.body, div.footer
+{
+	clear:both;
+	padding:0;
+}
+
+/* The footer needs a little padding to "fill it out". */
+div.footer
+{
+    color:#444444;
+    padding:2px;
+}
+
+div.imageMapKeyContainer
+{
+	max-height:75px;
+}
+
+/* This forces iframes to stack vertically (and not stretch horizontally). */
+iframe
+{
+	display:block;
+}

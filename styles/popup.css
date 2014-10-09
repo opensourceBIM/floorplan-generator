@@ -1,0 +1,28 @@
+div.label
+{
+	clear:right;
+	display:inline-block;
+	width:120px;
+}
+
+.attribute
+{
+	font-weight:normal;
+}
+
+.attributesContainer
+{
+	display:inline;
+}
+
+.label
+{
+	color:#666666;
+	font-size:10px;
+	font-weight:normal;
+}
+
+.value
+{
+	
+}

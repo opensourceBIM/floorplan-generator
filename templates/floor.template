@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+		<title>Floorplan</title>				
+		<script src="../scripts/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="../scripts/mapper/cvi_map_lib.js" type="text/javascript"></script> 
+        <script src="../scripts/mapper/mapper.js" type="text/javascript"></script>
+        <script src="../scripts/floorMap.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	window.onload = function() 
+        	{ 
+        		init({ areacolor: "#ff0000", noborder: "true" });
+        		 
+	        	$('.spaceContainer').click(function(element) 
+	        	{ 
+	        		updateSpaceInfo(element);
+	        	});      	
+	        }
+        </script>
+	</head>
+	<body>
+		<div>
+			<img id="floorMapImage" src="{floorMapImage}" usemap="#{floorName}" border="0">
+		</div>
+		<map name="{floorName}">
+        	{areas}
+        </map>
+   	</body>
+</html>

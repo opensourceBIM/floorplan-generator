@@ -1,0 +1,141 @@
+h1, h2, h3, h4, h5, h6
+{
+	display:inline;
+}
+
+div, h1, h2, h3, h4, h5, h6, label, span
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+
+div.tabContainer
+{
+	display:inline-block;
+	margin-left:7px;
+	margin-top:5px;	
+	margin-right:0;
+	margin-bottom:0;
+	width:100%;
+}
+
+div, label, span
+{
+	font-size:11px;
+}
+
+li
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+ul
+{
+	list-style-type:none;
+}
+
+.borderStandard
+{
+	border:1px solid black;
+}
+
+.floatLeft
+{
+	float:left; 
+	clear:right;
+}
+
+.floatRight
+{
+	float:right;
+}
+
+.label, .menuLabel, .value
+{    
+	min-width:125px;
+	padding:5px;
+}
+
+.label, .menuLabel
+{
+    color:#666666;
+    font-weight:lighter;
+}
+
+.marginNone, body
+{
+	margin:0;
+}
+
+.marginSmall
+{
+	margin:2px;
+}
+
+.marginStandard, label, span
+{
+	margin:5px;
+	margin-left:3px;
+	margin-right:2px;
+}
+
+.menu, .menuLabel
+{
+    display:table-cell;
+}
+
+.menuButton
+{
+	min-height:25px;
+	width:250px;
+}
+
+.menuItem
+{	
+    clear:right;     
+	min-height:18px;
+	padding-left:20px;
+	width:100%;
+}
+
+.menuOptions
+{
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+.paddingNone
+{
+	padding:0;
+}
+
+.paddingStandard
+{
+	padding:2px;
+}
+
+.textAlignRight
+{
+	text-align:right;
+}
+
+.ui-dialog
+{
+	width:750px;
+	height:500px;
+}
+
+.ui-menu
+{
+	max-height:300px;
+	min-height:100%;
+	width:240px;
+}
+
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 150px; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em; }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+		<title>Floorplan</title>
+		<link rel="stylesheet" type="text/css" href="../styles/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../styles/key.css"/>
+	</head>
+	<body>
+		<div>
+        	{keyInfos}
+        </div>
+    </body>
+</html>

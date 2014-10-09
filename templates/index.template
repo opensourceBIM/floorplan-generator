@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="refresh" content="0; URL={facilityPath}"/>
+		<meta name="keywords" content="automatic redirection"/>
+	</head>
+	<body>
+		If your browser doesn't automatically go there within a few seconds, you may want to go to <a href="{facilityPath}">the destination</a> manually.
+	</body>
+</html>

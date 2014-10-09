@@ -1,0 +1,23 @@
+div.keyIcon
+{
+	display:inline-block;	
+	width:10px;
+	height:10px;
+	vertical-align:bottom;
+}
+
+div.keyInfo
+{
+	display:inline;	
+	margin-left:0;
+	margin-right:10px;
+	overflow:visible;	
+	vertical-align:super;
+	width:175px;
+}
+
+div.keyIcon, div.keyInfo
+{
+	margin:3px;
+	margin-bottom:7px;
+}

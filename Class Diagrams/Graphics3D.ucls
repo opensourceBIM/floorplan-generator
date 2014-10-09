@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <enumeration id="1" language="java" name="org.erdc.cobie.graphics3d.Capability" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Capability.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="229" x="41" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="2" language="java" name="org.erdc.cobie.graphics3d.Engine3D" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Engine3D.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="320" x="2552" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="3" language="java" name="org.erdc.cobie.graphics3d.FillMode" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/FillMode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="119" x="1910" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="4" language="java" name="org.erdc.cobie.graphics3d.FloorArranger3D" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/FloorArranger3D.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="201" x="1669" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.erdc.cobie.graphics3d.Utils" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Utils.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="443" x="1186" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="6" language="java" name="org.erdc.cobie.graphics3d.Orientation" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Orientation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="119" x="1027" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="7" language="java" name="org.erdc.cobie.graphics3d.CullMode" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/CullMode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="174" x="3343" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="8" language="java" name="org.erdc.cobie.graphics3d.Scale" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Scale.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="157" x="2355" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="9" language="java" name="org.erdc.cobie.graphics3d.COBieCanvas3D" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/COBieCanvas3D.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="294" x="693" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="org.erdc.cobie.graphics3d.Math" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/Math.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="423" width="391" x="2912" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="org.erdc.cobie.graphics3d.MeshAggregator" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/MeshAggregator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="246" x="2069" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="org.erdc.cobie.graphics3d.RenderData3D" project="COBiePlugins_Private" 
+    file="/COBiePlugins_Private/src/org/erdc/cobie/graphics3d/RenderData3D.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="343" x="310" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

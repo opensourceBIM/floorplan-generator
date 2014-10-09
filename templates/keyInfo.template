@@ -1,0 +1,4 @@
+			<div class="keyInfo">
+            	<div class="keyIcon borderStandard" style="background-color:{color};"></div>
+            	<label class="keyLabel">{name}</label>
+            </div>

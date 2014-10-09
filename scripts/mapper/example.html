@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Mapper.js (automatic area highlighting for image maps)</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-language" content="en">
+	<link rel="bookmark" type="text/html" title="Mapper.js" href="http://www.netzgesta.de/mapper/">
+	<meta name="Author" lang="en" content="mapper.netzgesta.de - Christian Effenberger">	<meta name="Publisher" lang="en" content="www.netzgesta.de">	<meta name="Copyright" lang="en" content="www.netzgesta.de - Christian Effenberger">	<meta name="Generator" lang="en" content="Christian Effenberger">
+	<meta name="Description" lang="en" content="Mapper.js 2.0 allows you to add automatic area highlighting to image maps on your webpages through unobtrusive javascript">
+	<meta name="Keywords" lang="en" content="mapper.js,cvi_map_lib.js,image map,automatic,highlighting,border,opacity,color,export,svg,unobtrusive javascript,Mozilla,Firefox,Opera,Safari">
+	<meta http-equiv="imagetoolbar" content="no">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<script type="text/javascript" src="wz_jsgraphics.js"></script>
+	<script type="text/javascript" src="cvi_map_lib.js"></script>
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<style type="text/css">
+		body { background: silver; color: black; font-family: Georgia,serif; font-size: 80%; padding: 0px; margin: 0px;}
+		div.wrapper {width: 615px; height: auto; padding: 0px; margin: 5% auto;}
+		dt {margin-left: 10px;} dd {margin-left: 24px;}
+		div#parliament_blind, div.blind_area { 
+			background: transparent;
+			text-align: left;
+			vertical-align: bottom;
+			margin: 0; padding: 0;
+		}
+		div#parliament_blind p { 
+			margin: 0; padding: 0;
+			position:absolute; 
+			bottom: 8px; 
+			left: 32px;
+			color: white; 
+			font-family: sans-serif;
+			text-shadow: 2px 2px 4px black;
+			font-size: 12px;
+		}
+		table {-moz-box-shadow: 0px 0px 4px #666666; -webkit-box-shadow: 0px 0px 4px #666666; -khtml-box-shadow: 0px 0px 4px #666666; border-bottom:1px solid dimgray; border-right:1px solid dimgray;}
+		a { color: #222222; font-weight:normal; text-decoration:none; outline: none;}
+		.al { color: black; font-weight: bold; text-decoration:none; }
+		.lk:focus { color: black; font-weight: bold; text-decoration:none; }
+		.lk:hover { color: black; font-weight: bold; text-decoration:none; }
+		#guru { padding: 4px; width: 99%; height: auto; text-align: center; background-color: black; }
+		#guru div { border: solid 3px red; padding: 4px; font-family: monospace; font-size: 1.25em; width: auto; height: auto; color: red; text-align: center; text-decoration: blink; }
+	</style>
+<script type="text/javascript">
+<!--
+function ById(v) {return(document.getElementById(v));}
+function setClassTo(id) {var ele=ById('l'+id); ele.className="al";}
+function resetClass(id) {var ele=ById('l'+id); ele.className="lk";}
+function setup(opts) {
+	if(isIE) {this.blur(); }//IE specific
+	var obj = ById('bavarian_parliament'); 	
+	var pln = ById('parliament_floorplan');
+	if(opts['imgsrc']==''||opts['imgsrc'].match(/.+(Entrance_Hall|Bavarian_Parliament).+/i)) {
+		ById('FF').style.display = 'none';
+		ById('BM').style.display = 'block';
+		cvi_map.modify(pln,{imgsrc:'',mapid:''});
+	}else {
+		ById('BM').style.display = 'none';
+		ById('FF').style.display = 'block';
+		cvi_map.modify(pln,{imgsrc:'images/example/First_Floor.jpg',mapid:'First_Floor'});
+	} 
+	cvi_map.modify(obj,opts);
+	return false;
+}
+window.onload = function() {
+	cvi_map.add(ById('parliament_floorplan'),{opacity: 50, areacolor: '#0099ff', noborder: true});
+	cvi_map.add(ById('bavarian_parliament'),{opacity: 50, areacolor: '#00ff00', bordercolor: '#009900' });
+	ById('parliament_blind').innerHTML = "<p><b>Show Hot Spots<\/b><\/p>";
+}
+-->
+</script>
+	
+</head>
+<body><noscript><div id="guru" title="By this you can recognize the Amiga fan!"><div><strong>Guru Meditation</strong> - With deactivated JavaScript: Images stay unmodified!</div></div></noscript>
+<div class="wrapper">
+<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td valign="top" style="width:200px;height:136px; overflow:hidden; background: silver url(images/example/bg_left.jpg);">
+			<dl id="BM" style="display:block;">
+				<dt><a href="#" onclick="setup({imgsrc: 'images/example/Rocky_Hall_1.jpg', mapid: 'Rocky_Hall_1'});">First Floor</a></dt>
+				<dt><b>Basement</b></dt>
+				<dd><a href="#" id="l11" class="lk" onclick="setup({imgsrc: '', mapid: ''});" onmouseover="extAreaOver('parliament_floorplan','EX_F');" onmouseout="extAreaOut('parliament_floorplan','EX_F');">Exterior</a></dd>
+				<dd><a href="#" id="l12" class="lk" onclick="setup({imgsrc: 'images/example/Bavarian_Parliament_2.jpg',mapid:'Parliament_2'});" onmouseover="extAreaOver('parliament_floorplan','EX_R');" onmouseout="extAreaOut('parliament_floorplan','EX_R');">Exterior <em>(rear view)</em></a></dd>
+				<dd><a href="#" id="l13" class="lk" onclick="setup({imgsrc: 'images/example/Entrance_Hall_1.jpg', mapid: 'Entrance_Hall_1'});" onmouseover="extAreaOver('parliament_floorplan','EH_F');" onmouseout="extAreaOut('parliament_floorplan','EH_F');">Entrance Hall</a></dd>
+				<dd><a href="#" id="l14" class="lk" onclick="setup({imgsrc: 'images/example/Entrance_Hall_2.jpg', mapid: 'Entrance_Hall_2'});" onmouseover="extAreaOver('parliament_floorplan','EH_R');" onmouseout="extAreaOut('parliament_floorplan','EH_R');">Entrance Hall <em>(rear view)</em></a></dd>
+			</dl>
+			<dl id="FF" style="display:none;">
+				<dt><b>First Floor</b></dt>
+				<dd><a href="#" id="l21" class="lk" onclick="setup({imgsrc: 'images/example/Rocky_Hall_1.jpg', mapid: 'Rocky_Hall_1'});" onmouseover="extAreaOver('parliament_floorplan','RH_F');" onmouseout="extAreaOut('parliament_floorplan','RH_F');">Rocky Hall</a></dd>
+				<dd><a href="#" id="l22" class="lk" onclick="setup({imgsrc: 'images/example/Rocky_Hall_2.jpg', mapid: 'Rocky_Hall_2'});" onmouseover="extAreaOver('parliament_floorplan','RH_R');" onmouseout="extAreaOut('parliament_floorplan','RH_R');">Rocky Hall <em>(rear view)</em></a></dd>
+				<dd><a href="#" id="l23" class="lk" onclick="setup({imgsrc: 'images/example/Reading_Room.jpg', mapid: 'Reading_Room'});" onmouseover="extAreaOver('parliament_floorplan','RR_F');" onmouseout="extAreaOut('parliament_floorplan','RR_F');">Reading Room</a></dd>
+				<dd><a href="#" id="l24" class="lk" onclick="setup({imgsrc: 'images/example/Meeting_Room.jpg', mapid: 'Meeting_Room'});" onmouseover="extAreaOver('parliament_floorplan','MR_F');" onmouseout="extAreaOut('parliament_floorplan','MR_F');">Meeting Room</a></dd>
+				<dd><a href="#" id="l25" class="lk" onclick="setup({imgsrc: 'images/example/Plenary_Hall.jpg', mapid: 'Plenary_Hall'});" onmouseover="extAreaOver('parliament_floorplan','PH_F');" onmouseout="extAreaOut('parliament_floorplan','PH_F');">Plenary Hall</a></dd>
+				<dd><a href="#" id="l26" class="lk" onclick="setup({imgsrc: 'images/example/Senate_Hall.jpg', mapid: 'Senate_Hall'});" onmouseover="extAreaOver('parliament_floorplan','SH_F');" onmouseout="extAreaOut('parliament_floorplan','SH_F');">Senate Hall</a></dd> 
+				<dt><a href="#" onclick="setup({imgsrc: '', mapid: ''});">Basement</a></dt>
+			</dl>
+		</td>
+		<td valign="bottom" style="width:415px; background: blue url(images/example/bg_right.jpg);">
+		<img src="images/example/bl_logo.gif" width="240" height="136" border="0" alt="" /></td>
+	</tr><tr>
+		<td><div style="width:200px;height:251px;"><img id="parliament_floorplan" src="images/example/Basement.jpg" usemap="#floorplan" width="200" height="251" border="0" alt="" /></div></td>
+		<td><div style="width:415px;height:251px;"><img id="bavarian_parliament" src="images/example/Bavarian_Parliament_1.jpg" usemap="#parliament" width="415" height="251" border="0" alt="" /></div></td>
+	</tr>
+</table>
+<p><em>Images used are copyrighted and are used for demonstration only.</em></p>
+</div>
+<map name="parliament">
+	<area shape="poly" id="EH" title="Entrance Hall" alt="Entrance Hall" onclick="setup({imgsrc: 'images/example/Entrance_Hall_1.jpg', mapid: 'Entrance_Hall_1'});" href="#" coords="204,60, 204,47, 207,45, 210,44, 213,45, 215,47, 216,49, 216,60, 212,60, 212,51, 211,52, 211,49, 211,50, 208,50, 206,52, 205,56, 205,60">
+	<area shape="circle" id="HS1" rel="EH" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Parliament_2">
+	<area shape="circle" id="HS2" title="No Hot Spots" alt="No Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Entrance_Hall_1">
+	<area shape="poly" id="RH" title="Rocky Hall" alt="Rocky Hall" onclick="setup({imgsrc: 'images/example/Rocky_Hall_1.jpg', mapid: 'Rocky_Hall_1'});" href="#" coords="193,91, 224,91, 224,80, 225,80, 232,24, 229,20, 224,15, 220,17, 215,18, 213,19, 213,21, 210,22, 209,19, 207,18, 203,18, 200,16, 197,14, 192,17, 187,21, 185,26, 192,83, 193,83">
+	<area shape="circle" id="HS3" rel="RH" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Entrance_Hall_2">
+	<area shape="poly" id="EV_0" rel="EV_1,EV_2" title="Exterior View" alt="Exterior View" onclick="setup({imgsrc: 'images/example/Bavarian_Parliament_2.jpg', mapid: 'Parliament_2'});" href="#" coords="246,66, 246,151, 248,151, 248,166, 283,166, 286,154, 287,152, 290,152, 290,66">
+	<area shape="poly" id="EV_1" rel="EV_0,EV_2" title="Exterior View" alt="Exterior View" onclick="setup({imgsrc: 'images/example/Bavarian_Parliament_2.jpg', mapid: 'Parliament_2'});" href="#" coords="162,66, 162,166, 128,166, 127,159, 125,154, 125,152, 122,150, 119,150, 118,149, 116,148, 116,66">
+	<area shape="poly" id="EV_2" rel="EV_1,EV_0" title="Exterior View" alt="Exterior View" onclick="setup({imgsrc: 'images/example/Bavarian_Parliament_2.jpg', mapid: 'Parliament_2'});" href="#" coords="196,166, 178,166, 178,66, 232,66, 232,166, 221,166, 219,152, 208,152, 198,152">
+	<area shape="circle" id="HS4" rel="EV_0,EV_1,EV_2" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Rocky_Hall_1">
+	<area shape="poly" id="RR" title="Reading Room" alt="Reading Room" onclick="setup({imgsrc: 'images/example/Reading_Room.jpg', mapid: 'Reading_Room'});" href="#" coords="52,45, 69,45, 69,54, 89,66, 103,66, 103,173, 80,173, 71,175, 71,186, 53,187">
+	<area shape="poly" id="MR" title="Meeting Room" alt="Meeting Room" onclick="setup({imgsrc: 'images/example/Meeting_Room.jpg', mapid: 'Meeting_Room'});" href="#" coords="326,169, 357,179, 356,45, 325,63">
+	<area shape="circle" id="HS5" rel="RR,MR" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Rocky_Hall_2">
+	<area shape="poly" id="SH" title="Senate Hall" alt="Senate Hall" onclick="setup({imgsrc: 'images/example/Senate_Hall.jpg', mapid: 'Senate_Hall'});" href="#" coords="38,44, 92,73, 92,171, 37,197">
+	<area shape="rect" id="EH_0" rel="EH_1,EH_2" title="Entrance Hall" alt="Entrance Hall" onclick="setup({imgsrc: 'images/example/Entrance_Hall_2.jpg', mapid: 'Entrance_Hall_2'});" href="#" coords="230,108,246,148">
+	<area shape="rect" id="EH_1" rel="EH_2,EH_0" title="Entrance Hall" alt="Entrance Hall" onclick="setup({imgsrc: 'images/example/Entrance_Hall_2.jpg', mapid: 'Entrance_Hall_2'});" href="#" coords="200,108,218,148">
+	<area shape="rect" id="EH_2" rel="EH_1,EH_0" title="Entrance Hall" alt="Entrance Hall" onclick="setup({imgsrc: 'images/example/Entrance_Hall_2.jpg', mapid: 'Entrance_Hall_2'});" href="#" coords="172,108,189,148">
+	<area shape="poly" id="PH" title="Plenary Hall" alt="Plenary Hall" onclick="setup({imgsrc: 'images/example/Plenary_Hall.jpg', mapid: 'Plenary_Hall'});" href="#" coords="414,198, 326,172, 326,70, 414,19">
+	<area shape="circle" id="HS6" rel="SH,EH_2,EH_1,EH_0,PH" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Reading_Room">
+	<area shape="poly" id="PH_R" title="Plenary Hall" alt="Plenary Hall" onclick="setup({imgsrc: 'images/example/Plenary_Hall.jpg', mapid: 'Plenary_Hall'});" href="#" coords="0,67, 20,73, 112,81, 112,251, 45,251, 0,251">
+	<area shape="circle" id="HS7" rel="PH_R" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Meeting_Room">
+	<area shape="poly" id="SH_R" title="Senate Hall" alt="Senate Hall" onclick="setup({imgsrc: 'images/example/Senate_Hall.jpg', mapid: 'Senate_Hall'});" href="#" coords="300,191, 300,117, 410,96, 412,253, 399,251">
+	<area shape="circle" id="HS8" rel="SH_R" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Plenary_Hall">
+	<area shape="poly" id="RH_P" title="Rocky Hall" alt="Rocky Hall" onclick="setup({imgsrc: 'images/example/Rocky_Hall_2.jpg', mapid: 'Rocky_Hall_2'});" href="#" coords="342,134, 342,117, 360,116, 374,115, 382,114, 382,140, 375,140, 375,137, 368,137, 368,134, 352,134, 352,136, 350,136, 350,135, 347,135, 347,134">
+	<area shape="circle" id="HS9" rel="RH_P" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map id="Senate_Hall">
+	<area shape="rect" id="RH_S" title="Rocky Hall" alt="Rocky Hall" onclick="setup({imgsrc: 'images/example/Rocky_Hall_2.jpg', mapid: 'Rocky_Hall_2'});" href="#" coords="199,102,217,152">
+	<area shape="circle" id="HS0" rel="RH_S" title="Show Hot Spots" alt="Show Hot Spots" class="noborder iopacity001" href="#" coords="14,237,5">
+</map>
+<map name="floorplan">
+	<area id="EX_F" onmouseover="setClassTo(11);" onmouseout="resetClass(11);" title="Exterior" alt="Exterior" onclick="setup({imgsrc: '', mapid: ''});" href="#" shape="poly" coords="161,121, 165,121, 167,123, 167,127, 165,129, 161,129, 160,128, 148,133, 148,116, 160,122">
+	<area id="EX_R" onmouseover="setClassTo(12);" onmouseout="resetClass(12);" title="Exterior (rear view)" alt="Exterior (rear view)" onclick="setup({imgsrc: 'images/example/Bavarian_Parliament_2.jpg', mapid: 'Parliament_2'});" href="#" shape="poly" coords="177,121, 173,121, 171,123, 171,127, 173,129, 177,129, 178,128, 190,133, 190,116, 178,122">
+	<area id="EH_F" onmouseover="setClassTo(13);" onmouseout="resetClass(13);" title="Entrance Hall" alt="Entrance Hall" onclick="setup({imgsrc: 'images/example/Entrance_Hall_1.jpg', mapid: 'Entrance_Hall_1'});" href="#" shape="poly" coords="86,123, 86,127, 84,129, 80,129, 79,128, 67,133, 67,116, 79,122, 80,121, 84,121">
+	<area id="EH_R" onmouseover="setClassTo(14);" onmouseout="resetClass(14);" title="Entrance Hall (rear view)" alt="Entrance Hall (rear view)" onclick="setup({imgsrc: 'images/example/Entrance_Hall_2.jpg', mapid: 'Entrance_Hall_2'});" href="#" shape="poly" coords="90,127, 90,123, 92,121, 96,121, 97,122, 109,116, 109,133, 97,128, 96,129, 92,129">
+</map>
+<map id="First_Floor">
+	<area id="RH_F" onmouseover="setClassTo(21);" onmouseout="resetClass(21);" title="Rocky Hall" alt="Rocky Hall" onclick="setup({imgsrc: 'images/example/Rocky_Hall_1.jpg', mapid: 'Rocky_Hall_1'});" href="#" shape="poly" coords="89,122, 88,121, 84,121, 82,123, 82,127, 84,129, 88,129, 89,128, 101,133, 101,116">
+	<area id="RH_R" onmouseover="setClassTo(22);" onmouseout="resetClass(22);" title="Rocky Hall (rear view)" alt="Rocky Hall (rear view)" onclick="setup({imgsrc: 'images/example/Rocky_Hall_2.jpg', mapid: 'Rocky_Hall_2'});" href="#" shape="poly" coords="72,129, 76,129, 78,127, 78,123, 76,121, 72,121, 71,122, 59,116, 59,133, 71,128">
+	<area id="RR_F" onmouseover="setClassTo(23);" onmouseout="resetClass(23);" title="Reading Room" alt="Reading Room" onclick="setup({imgsrc: 'images/example/Reading_Room.jpg', mapid: 'Reading_Room'});" href="#" shape="poly" coords="106,63, 110,63, 112,61, 112,57, 111,56, 117,44, 100,44, 105,56, 104,57, 104,61">
+	<area id="MR_F" onmouseover="setClassTo(24);" onmouseout="resetClass(24);" title="Meeting Room" alt="Meeting Room" onclick="setup({imgsrc: 'images/example/Meeting_Room.jpg', mapid: 'Meeting_Room'});" href="#" shape="poly" coords="111,188, 107,188, 105,190, 105,194, 106,195, 100,207, 117,207, 112,195, 113,194, 113,190">
+	<area id="SH_F" onmouseover="setClassTo(25);" onmouseout="resetClass(25);" title="Senate Hall" alt="Senate Hall" onclick="setup({imgsrc: 'images/example/Senate_Hall.jpg', mapid: 'Senate_Hall'});" href="#" shape="poly" coords="68,223, 72,223, 74,221, 74,217, 73,216, 79,204, 62,204, 67,216, 66,217, 66,221">
+	<area id="PH_F" onmouseover="setClassTo(26);" onmouseout="resetClass(26);" title="Plenary Hall" alt="Plenary Hall" onclick="setup({imgsrc: 'images/example/Plenary_Hall.jpg', mapid: 'Plenary_Hall'});" href="#" shape="poly" coords="46,26, 46,22, 48,20, 52,20, 54,22, 54,24, 64,30, 51,40, 50,37, 48,28">
+</map>
+
+</body>
+</html>

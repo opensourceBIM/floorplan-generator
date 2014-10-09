@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    	<title>{facilityName} Floorplan</title>
+		<link rel="stylesheet" type="text/css" href="../styles/base.css"/>	
+        <link rel="stylesheet" type="text/css" href="../styles/main.css"/>	
+        <link rel="stylesheet" href="../scripts/jquery-ui/css/ui-lightness/jquery-ui.css"/>
+        <script src="../scripts/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="../scripts/jquery-ui/js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../scripts/utils.js" type="text/javascript"></script>
+        <script src="../scripts/panel.js" type="text/javascript"></script>
+        <script src="../scripts/equipmentInfo.js" type="text/javascript"></script>
+        <script src="../scripts/spaceInfo.js" type="text/javascript"></script>
+        <script src="../scripts/menu.js" type="text/javascript"></script>
+        <script src="../scripts/equipmentMenu.js" type="text/javascript"></script>
+        <script src="../scripts/spaceEquipmentMenu.js" type="text/javascript"></script>
+        <script src="../scripts/spaceMenu.js" type="text/javascript"></script>      
+        <script src="../scripts/zoneMenu.js" type="text/javascript"></script>
+        <script src="../scripts/categoryMenu.js" type="text/javascript"></script>
+        <script src="../scripts/floorMenu.js" type="text/javascript"></script>
+        <script src="../scripts/localStore.js" type="text/javascript"></script>
+        <script src="../scripts/jsonReader.js" type="text/javascript"></script>
+        <script src="../scripts/main.js" type="text/javascript"></script>
+    	<script type="text/javascript">
+			window.onload = function() { init('{jsonPath}'); };
+			$(window).resize(function() { resize(); });			   	
+    	</script>
+    </head>
+    <body>
+    	<div class="container">
+            <div class="header"></div>
+            <div class="body">
+                   
+        	    <div id="filtersTabContainer" class="tabContainer">            
+            	    <ul>
+            	    	<li><a href="#floorMenuTab"><span>Floor Filter</span></a></li>
+            	    	<li><a href="#categoryMenuTab"><span>Space Category Filter</span></a></li>
+                    	<li><a href="#zoneMenuTab"><span>Zone Assignment Filter</span></a></li>
+                    	<li><a href="#spaceMenuTab"><span>Space Name Filter</span></a></li>
+            	    	<li><a href="#equipmentTab"><span>Equipment Filter</span></a></li>
+            	    </ul>           		               
+            	    <div id="floorMenuTab" class="paddingStandard">
+            	    	<div class="menuLabel">
+            	    		<span>Select a Floor</span>
+            	    	</div>
+            	    	<div class="menu">
+                			<button id="floorMenuButton" class="menuButton"></button>
+                			<ul id="floorMenuOptions" class="menuOptions"></ul>
+                		</div>
+	                </div>
+                    <div id="categoryMenuTab">
+                    	<div class="menuLabel">
+        	    			<span class="label">Select a Category</span>
+        	    		</div>
+        	    		<div class="menu">
+                    		<button id="categoryMenuButton" class="menuButton"></button>
+                        	<ul id="categoryMenuOptions" class="menuOptions"></ul>
+                        </div>
+                    </div>
+                    <div id="zoneMenuTab">
+                    	<div class="menuLabel">
+        	    			<span>Select a Zone</span>
+        	    		</div>	
+        	    		<div class="menu">
+	                    	<button id="zoneMenuButton" class="menuButton"></button>
+	                    	<ul id="zoneMenuOptions" class="menuOptions"></ul>
+	                    </div>
+                    </div>
+                    <div id="spaceMenuTab">
+                    	<div class="menuLabel">
+        	    			<span>Select a Space</span>
+        	    		</div>
+        	    		<div class="menu">
+	                    	<button id="spaceMenuButton" class="menuButton"></button>
+	                    	<ul id="spaceMenuOptions" class="menuOptions"></ul>
+	                    </div>
+                    </div>	
+                    <div id="equipmentTab">
+                    	<div class="menuLabel">
+        	    			<span>Select Equipment or Type</span>
+        	    		</div>
+        	    		<div class="menu">
+            				<button id="equipmentMenuButton" class="menuButton"></button>
+            				<ul id="equipmentMenuOptions" class="menuOptions"></ul>
+            			</div>
+                	</div>                
+        		</div>
+        		
+        		<div id="spaceInfoTabContainer" class="tabContainer">
+					<ul>
+						<li>
+							<a href="#spaceInfoTab">
+								<span>Space Information</span>
+								<span id="spaceInfoCloseButton" title="Click to close Space Information"></span>
+							</a>
+						</li>
+					</ul>
+					<div id="spaceInfoTab">
+						<div id="spaceInfoPanel">
+							<div>
+								<h3 id="spaceInfoPanelSpaceName"></h3>
+								<span>[</span><span id="spaceInfoPanelSpaceCategory"></span><span>]</span>
+								<span id="spaceInfoPanelSpaceDescription"></span>
+							</div>
+							<div>
+						   		<div class="label">gross area: </div><span id="spaceGrossArea" class="value"></span>
+						   		<br/>
+						   		<div class="label">net area: </div><span id="spaceNetArea" class="value"></span>
+					   		</div>
+						</div>
+						<div class="marginStandard">
+							<div class="menuLabel">
+								<span>Select Space Equipment or Type</span>
+							</div>
+							<div class="menu">
+								<button id="spaceEquipmentMenuButton" class="menuButton"></button>
+					   			<ul id="spaceEquipmentMenuOptions" class="menuOptions"></ul>
+					   		</div>
+					   	</div>
+				   		<a id="documents"></a>
+				   	</div>
+               	</div>
+               	
+	           	<div id="imageMapTabContainer" class="tabContainer">
+	           		<ul>
+	           			<li><a href="#imageMapTab"><span>Floor Map</span></a></li>
+	           		</ul>
+	           		<div id="imageMapTab">
+	            		<iframe id="imageMapFrame" frameborder="0" scrolling="no" width="{imageWidth}" height="{imageHeight}"></iframe>
+	            	</div>
+	            </div>
+				
+	            <div id="imageMapKeyTabContainer" class="tabContainer imageMapKeyContainer">
+					<ul>
+	                	<li><a href="#imageMapKeyTab"><span>Floor Map Key</span></a></li>
+	                </ul>                    
+	                <div id="imageMapKeyTab">
+	                	<iframe id="imageMapKeyFrame" frameborder="0" scrolling="no" width="{imageWidth}"></iframe>
+	                </div>
+	            </div>
+              
+              	<div class="footer textAlignRight">
+            		<span class="footerText">&copy; 2013 ERDC-ITL</span>
+        		</div> 
+             	
+       		</div>				
+      	</div>  
+      	<div id="equipmentInfoDialog">
+      		<iframe frameborder="0" width="100%" height="100%"></iframe>
+      	</div>      
+	</body>
+</html>
+

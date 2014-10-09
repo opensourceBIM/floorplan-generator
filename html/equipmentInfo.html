@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    	<title>Equipment Information</title>
+		<link rel="stylesheet" type="text/css" href="../styles/base.css"/>	
+        <link rel="stylesheet" type="text/css" href="../styles/popup.css"/>
+        <script src="../scripts/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="../scripts/jquery-ui/js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../scripts/utils.js" type="text/javascript"></script>
+        <script src="../scripts/localStore.js" type="text/javascript"></script>
+        <script src="../scripts/jsonReader.js" type="text/javascript"></script>
+        <script src="../scripts/panel.js" type="text/javascript"></script>
+        <script src="../scripts/equipmentPanel.js" type="text/javascript"></script>
+        <script src="../scripts/equipmentTypePanel.js" type="text/javascript"></script>
+        <script src="../scripts/equipmentInfo.js" type="text/javascript"></script>
+        <script type="text/javascript">        	
+        	window.onload = function() 
+			{ 				 
+				new EquipmentInfo().init();
+			};						
+		</script>
+    </head>
+    <body>
+    	<div id="equipmentTypeInfoSection">
+			<div class="label">Description: </div><span id="equipmentTypeDescription" class="value"></span><br/>
+			<div class="label">Attributes:</div><ul id="equipmentTypeAttributes"></ul>
+			<div class="label">Documents:</div><ul id="equipmentTypeDocuments"></ul>
+     	</div>    	
+    	<div id="equipmentInfoSection">
+    		<div class="label">@ExternalEntityName: </div><span id="equipmentExternalEntityName" class="value"></span><br/>
+	    	<div class="label">@ExternalEntityID: </div><span id="equipmentExternalID" class="value"></span><br/>
+	    	<div class="label">@ExternalSystemName: </div><span id="equipmentExternalSystemName" class="value"></span><br/>
+			<hr/>
+	        <div class="label">Description: </div><span id="equipmentDescription" class="value"></span><br/>
+	        <div class="label">Location: </div><span id="equipmentLocationDescription" class="value"></span><br/>
+	        <div class="label">Serial #: </div><span id="equipmentSerialNumber" class="value"></span><br/>
+			<div class="label">Tag #: </div><span id="equipmentTagNumber" class="value"></span><br/>
+			<hr/>
+			<div class="label">Attributes:</div><ul id="equipmentAttributes"></ul>
+		    <hr/>
+		    <div class="label">Documents:</div><ul id="equipmentDocuments"></ul>		    
+	    </div>      
+	</body>
+</html>
+
