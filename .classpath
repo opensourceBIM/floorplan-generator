@@ -2,9 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/COBieBIMServerShared"/>
-	<classpathentry kind="lib" path="/BimServer/lib/j3dcore.jar"/>
-	<classpathentry kind="lib" path="/BimServer/lib/j3dutils.jar"/>
-	<classpathentry kind="lib" path="/BimServer/lib/vecmath.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Shared"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/COBieBIMServerShared"/>
+	<classpathentry kind="lib" path="lib/j3dcore.jar"/>
+	<classpathentry kind="lib" path="lib/j3dutils.jar"/>
+	<classpathentry kind="lib" path="lib/vecmath.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

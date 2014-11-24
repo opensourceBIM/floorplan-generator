@@ -4,4 +4,8 @@
 		<interfaceClass>org.bimserver.plugins.serializers.SerializerPlugin</interfaceClass>
 		<implementationClass>org.erdc.cobie.plugins.COBieFloorMapSerializerPlugin</implementationClass>
 	</PluginImplementation>
+	<dependencies>
+		<Dependency path="D:\Git\COBie-plugins\COBieShared"/>
+		<Dependency path="D:\Git\COBie-plugins\COBieBIMServerShared"/>
+	</dependencies>
 </PluginDescriptor>
