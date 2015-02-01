@@ -11,7 +11,7 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import org.bimserver.geometry.Matrix;
-import org.bimserver.models.ifc2x3tc1.GeometryData;
+import org.bimserver.models.geometry.GeometryData;
 import org.bimserver.models.ifc2x3tc1.IfcProduct;
 import org.erdc.cobie.graphics.string.Default;
 import org.erdc.cobie.shared.utility.CollectionUtils;

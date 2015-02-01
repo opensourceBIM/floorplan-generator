@@ -4,7 +4,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.bimserver.emf.Schema;
 import org.bimserver.plugins.PluginConfiguration;
 import org.bimserver.plugins.PluginException;
 import org.bimserver.plugins.PluginManager;
@@ -95,7 +97,7 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
     private void initPluginManager(PluginManager pluginManager) throws PluginException
     {
         this.pluginManager = pluginManager;
-        pluginManager.requireSchemaDefinition();
+        pluginManager.requireSchemaDefinition(Schema.IFC2X3TC1.name().toLowerCase());
     }
 
     private void initResourceManager() throws PluginException
@@ -135,4 +137,10 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
     {
         return true;
     }
+
+	@Override
+	public Set<Schema> getSupportedSchemas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
