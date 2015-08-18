@@ -1,0 +1,196 @@
+<project name="COBieServer Public Common">
+	<import file="one-jar-ant-task.xml" />
+	<fileset id="lib" dir="../../BimServerLib">
+		<include name="dep/*.jar" />
+		<include name="lib/*.jar" />
+		<include name="plugins/*.jar"/>
+	</fileset>
+	<fileset id="buildlib" dir="builds/lib">
+		<include name="**/*.jar" />
+	</fileset>
+	<fileset id="lib" dir="../../BimServer">
+			<include name="**/*.jar" />
+			<exclude name="**tomcat*"/>
+		</fileset>
+	<fileset id="sharedlib" dir="../../Shared">
+			<include name="**/*.jar" />
+		</fileset>
+	<target name="COBieShared">
+		<mkdir dir="builds/cobieshared" />
+		<mkdir dir="builds/cobieshared/lib" />
+		<copy todir="builds/cobieshared/lib">
+			<fileset dir="../../COBieShared/lib" />
+		</copy>
+		<copy todir="builds/lib">
+			<fileset dir="../../COBieShared/lib" />
+		</copy>
+		 <pathconvert pathsep="${line.separator}|   |-- "             
+					        property="echo.path.compile"             
+					        refid="lib">
+					    </pathconvert>
+					    <echo>${echo.path.compile}</echo>
+		 <pathconvert pathsep="${line.separator}|   |-- "             
+					        property="echo.path.compileshared"             
+					        refid="buildlib">
+					    </pathconvert>
+					    <echo>${echo.path.compileshared}</echo>
+		 <pathconvert pathsep="${line.separator}|   |-- "             
+					        property="echo.path.compilesharedother"             
+					        refid="sharedlib">
+					    </pathconvert>
+					    <echo>${echo.path.compilesharedother}</echo>
+		<javac destdir="builds/cobieshared" debug="on" includeantruntime="true">
+			<src path="../../COBieShared/src" />
+			<classpath>
+				<path>
+					<fileset refid="sharedlib" />
+					<fileset refid="lib" />
+					<fileset refid="buildlib" />
+				</path>
+			</classpath>
+		</javac>
+
+		<jar destfile="builds/lib/bimserver-${version}-cobieshared.jar">
+			<fileset dir="builds/cobieshared" />
+		</jar>
+	</target>
+
+	
+	<target name="FloorPlanGenerator">
+			<mkdir dir="builds/floorplangenerator" />
+			<javac destdir="builds/floorplangenerator" includeantruntime="false" debug="on">
+				<src path="../../floorplan-generator/src" />
+				<src path="../../COBieShared/src" />
+				<classpath>
+					<path>
+						<fileset dir="../../floorplan-generator/lib" />
+					</path>
+					<path>
+						<fileset refid="sharedlib" />
+						<fileset refid="lib" />
+						<fileset refid="buildlib" />
+						
+					</path>
+					<path>
+						<fileset dir="../../COBieShared/lib" />
+					</path>
+				</classpath>
+			</javac>
+			<mkdir dir="builds/floorplangenerator/lib" />
+			<copy todir="builds/floorplangenerator/lib">
+				<fileset dir="../../floorplan-generator/lib" />
+			</copy>
+			<mkdir dir="builds/floorplangenerator/html"/>
+			<copy todir="builds/floorplangenerator/html">
+				<fileset dir="../../floorplan-generator/html">
+				</fileset>
+			</copy>	
+		
+		<mkdir dir="builds/floorplangenerator/scripts"/>
+		<copy todir="builds/floorplangenerator/scripts">
+			<fileset dir="../../floorplan-generator/scripts">
+			</fileset>
+		</copy>
+		
+		<mkdir dir="builds/floorplangenerator/styles"/>
+		<copy todir="builds/floorplangenerator/styles">
+			<fileset dir="../../floorplan-generator/styles">
+			</fileset>
+		</copy>
+		
+		<mkdir dir="builds/floorplangenerator/templates"/>
+		<copy todir="builds/floorplangenerator/templates">
+			<fileset dir="../../floorplan-generator/templates">
+			</fileset>
+		</copy>
+		
+			<copy todir="builds/floorplangenerator/lib">
+				<fileset dir="../../COBieShared/lib" />
+			</copy>
+			<mkdir dir="builds/floorplangenerator/plugin" />
+			<copy todir="builds/floorplangenerator/plugin">
+				<fileset dir="../../floorplan-generator/plugin">
+				</fileset>
+			</copy>
+			<jar destfile="builds/lib/bimserver-floorplangenerator-${version}.jar">
+				<fileset dir="builds/floorplangenerator" />
+			</jar>
+		</target>
+	
+	<target name="Shared">
+			<mkdir dir="builds/shared" />
+			<javac destdir="builds/shared" debug="on" includeantruntime="false">
+				<src path="../../Shared/src" />
+				<src path="../../Shared/generated" />
+				<classpath>
+					<pathelement location="../../Shared/genclasses"/>
+					<path>
+						<fileset refid="sharedlib" />
+						<fileset refid="lib" />
+						<fileset refid="buildlib" />
+					</path>
+				</classpath>
+			</javac>
+			<copy todir="builds/shared/org/bimserver/shared/interfaces">
+				<fileset dir="../../Shared/src/org/bimserver/shared/interfaces">
+					<include name="*.java"/>
+				</fileset>
+			</copy>
+			<copy todir="builds/shared">
+				<fileset dir="../../Shared/genclasses"></fileset>
+			</copy>
+			<copy file="../../Shared/generated/org/bimserver/models/ifc2x3tc1/impl/ifc2x3tc1.ecore" todir="builds/shared/org/bimserver/models/ifc2x3tc1/impl" />
+			<copy file="../../Shared/generated/org/bimserver/models/store/impl/store.ecore" todir="builds/shared/org/bimserver/models/store/impl" />
+			<copy file="../../Shared/generated/org/bimserver/models/log/impl/log.ecore" todir="builds/shared/org/bimserver/models/log/impl" />
+			<copy file="../../Shared/generated/org/bimserver/models/geometry/impl/geometry.ecore" todir="builds/shared/org/bimserver/models/geometry/impl" />
+			<copy file="../../Shared/generated/org/bimserver/models/ifc4/impl/ifc4.ecore" todir="builds/shared/org/bimserver/models/ifc4/impl" />
+			<copy todir="builds/shared/org/bimserver/shared/interfaces/bimsie1">
+				<fileset dir="../../Shared/src/org/bimserver/shared/interfaces/bimsie1">
+					<include name="*.java"/>
+				</fileset>
+			</copy>
+			<jar destfile="builds/lib/bimserver-${version}-shared.jar">
+				<fileset dir="builds/shared"/>
+			</jar>
+		</target>
+	<target name="Ifc">
+			<mkdir dir="builds/ifc" />
+			<javac destdir="builds/ifc" debug="on" includeantruntime="false">
+				<src path="../../Ifc/src" />
+				<classpath>
+					<path>
+						<fileset refid="sharedlib" />
+						<fileset refid="lib" />
+						<fileset refid="buildlib" />
+					</path>
+				</classpath>
+			</javac>
+			<jar destfile="builds/lib/bimserver-${version}-ifc.jar">
+				<fileset dir="builds/ifc"/>
+			</jar>
+		</target>
+	<target name="BimServerClientLib">
+			<mkdir dir="builds/bimserverclientlib" />
+			<javac destdir="builds/bimserverclientlib" debug="on" fork="false" includeantruntime="false">
+				<src path="../../BimServerClientLib/src" />
+				<classpath>
+					<path>
+						<fileset refid="sharedlib" />
+						<fileset refid="lib" />
+						<fileset refid="buildlib" />
+					</path>
+				</classpath>
+			</javac>
+			<copy todir="builds/bimserverclientlib/org/bimserver/client/protocolbuffers">
+				<fileset dir="../../BimServerClientLib/src/org/bimserver/client/protocolbuffers">
+					<include name="*.desc"/>
+					<include name="*.proto"/>
+				</fileset>
+			</copy>
+			<jar destfile="builds/lib/bimserver-${version}-client-lib.jar">
+				<fileset dir="builds/bimserverclientlib"/>
+			</jar>
+		</target>
+	<property name="buildtargets" value="../build/targets" />
+	<property name="defaultsettings" value="../defaultsettings" />
+</project>
