@@ -117,6 +117,7 @@ public class OutputSettings extends Settings
 		this.stylesInfo = stylesInfo;
 		this.templateInfo = templateInfo;
 		this.jsonInfo = jsonInfo;
+		System.out.println("Scripts are in "+ new File(scriptsInfo.path).getAbsolutePath());
 	}
 
 	public final FileInfo getHtmlInfo()

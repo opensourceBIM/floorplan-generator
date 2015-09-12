@@ -1,4 +1,4 @@
-<project name="COBieServer Public Common">
+<project name="Common">
 	<import file="one-jar-ant-task.xml" />
 	<fileset id="lib" dir="../../BimServerLib">
 		<include name="dep/*.jar" />

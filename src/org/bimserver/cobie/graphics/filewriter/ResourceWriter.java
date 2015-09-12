@@ -24,7 +24,7 @@ public class ResourceWriter extends FileWriter
     {
         for(String key : getSettings().getOutputSettings().getResources().keySet())
         {
-            File file = getSettings().getOutputSettings().getResources().get(key);            
+            File file = getSettings().getOutputSettings().getResources().get(key);  
             zipper.addEntry(file, key, false);
         }        
     }

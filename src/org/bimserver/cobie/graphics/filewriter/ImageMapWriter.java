@@ -5,7 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.StringJoiner;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.bimserver.models.ifc2x3tc1.IfcSpace;
 import org.bimserver.cobie.graphics.COBieColor;
@@ -82,18 +86,23 @@ public class ImageMapWriter extends TemplateWriter
 
         private String writeAreas()
         {
+
             Map<String, Triangle> triangles = getTriangles();
             String areas = Common.EMPTY_STRING.toString();
-
+            Set<String> triangleIDs = triangles.keySet();
+            
             for (String triangleID : triangles.keySet())
-            {                
-                String areaTemplate = getTemplate();
+            {
+            	List<String> otherIDs = triangleIDs.stream().filter(t ->  !(t.equals(triangleID))).collect(Collectors.toList());
+            	String  relTag = otherIDs.stream().map(s ->s)
+                        .collect(Collectors.joining(","));
+            	String areaTemplate = getTemplate();
                 areaTemplate = areaTemplate.replace(Pattern.ID.toString(), triangleID);
                 areaTemplate = areaTemplate.replace(Pattern.CLASS.toString(), getSpace().getName());
-                areaTemplate = areaTemplate.replace(Pattern.TITLE.toString(), Common.EMPTY_STRING.toString());//this.getSpace().getName());
+                areaTemplate = areaTemplate.replace(Pattern.TITLE.toString(), this.getSpace().getName());
                 areaTemplate = areaTemplate.replace(Pattern.LINK.toString(), Default.HEX_COLOR_PREFIX.toString());
                 areaTemplate = areaTemplate.replace(Pattern.COORDS.toString(), triangles.get(triangleID).toString());
-
+                areaTemplate = areaTemplate.replace(Pattern.REL.toString(),  relTag);
                 areas += areaTemplate;
             }
 
@@ -110,17 +119,17 @@ public class ImageMapWriter extends TemplateWriter
             
             StringBuilder infoBuilder = new StringBuilder();
             
-            if (!StringUtils.isNullOrEmpty(name))
+            if (Optional.ofNullable(name).isPresent())
             {
                 infoBuilder.append(name + StringUtils.EOL);
             }
             
-            if (!StringUtils.isNullOrEmpty(description))
+            if (Optional.ofNullable(description).isPresent())
             {
                 infoBuilder.append(description + StringUtils.EOL);
             }
             
-            if (!StringUtils.isNullOrEmpty(category))
+            if (Optional.ofNullable(category).isPresent())
             {
                 infoBuilder.append(Default.SPACE_INFO.format(category));
             }

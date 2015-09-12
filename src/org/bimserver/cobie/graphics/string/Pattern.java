@@ -17,6 +17,7 @@ public enum Pattern
     KEY_INFOS("{keyInfos}"),
     LINK("{link}"),
     NAME("{name}"),
+    REL("{rel}"),
     TITLE("{title}");
     
     private final String pattern;

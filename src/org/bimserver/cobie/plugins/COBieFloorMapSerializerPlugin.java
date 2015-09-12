@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.bimserver.cobie.graphics.filewriter.Resource;
+import org.bimserver.cobie.graphics.filewriter.ResourceManager;
+import org.bimserver.cobie.graphics.serializers.COBieFloorMapSerializer;
+import org.bimserver.cobie.graphics.string.Default;
+import org.bimserver.cobie.shared.LoggerUser;
 import org.bimserver.emf.Schema;
 import org.bimserver.plugins.PluginConfiguration;
 import org.bimserver.plugins.PluginException;
 import org.bimserver.plugins.PluginManager;
 import org.bimserver.plugins.serializers.AbstractSerializerPlugin;
 import org.bimserver.plugins.serializers.Serializer;
-import org.bimserver.cobie.graphics.filewriter.Resource;
-import org.bimserver.cobie.graphics.serializers.COBieFloorMapSerializer;
-import org.bimserver.cobie.graphics.string.Default;
-import org.bimserver.cobie.shared.LoggerUser;
-import org.bimserver.cobie.shared.ResourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +33,15 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
         return new COBieFloorMapSerializer(resourceManager.getResourceMap());
     }
 
+    
+    /**
+     * This functionality is in {@link ResourceManager}
+     * @param relativePath
+     * @return
+     * @throws URISyntaxException
+     * @see ResourceManager
+     */
+    @Deprecated
     public URI getAbsolutePath(URI relativePath) throws URISyntaxException
     {
         getLogger().info(relativePath.getPath());
@@ -105,17 +114,18 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
     {
     	List<URI> runtimeDependencies = new ArrayList<URI>();
     	File tempDirectory = new File(pluginManager.getTempDir(), TMP_FOLDER);
+    	//File tempDirectory = pluginManager.getTempDir();
         try
         {
-            for (Resource templateFile : Resource.values())
+            for (Resource resource : Resource.values())
             {
-                runtimeDependencies.add(templateFile.getRelativePath());
+                runtimeDependencies.add(resource.getRelativePath());
             }
             
             resourceManager = new ResourceManager(
                             	runtimeDependencies, 
                             	tempDirectory.toURI(), 
-                            	pluginManager.getPluginContext(this));
+                            	pluginManager, this);
             
             resourceManager.copyResources();
         }
