@@ -3,15 +3,13 @@ package org.bimserver.cobie.graphics.filewriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
-import org.bimserver.models.ifc2x3tc1.IfcSpace;
 import org.bimserver.cobie.graphics.COBieColor;
 import org.bimserver.cobie.graphics.EntitySetting;
 import org.bimserver.cobie.graphics.entities.Floor;
@@ -24,9 +22,10 @@ import org.bimserver.cobie.graphics.string.Default;
 import org.bimserver.cobie.graphics.string.Pattern;
 import org.bimserver.cobie.graphics2d.Triangle;
 import org.bimserver.cobie.shared.Common;
-import org.bimserver.cobie.shared.utility.Zipper;
 import org.bimserver.cobie.shared.utility.COBieIfcUtility;
 import org.bimserver.cobie.shared.utility.StringUtils;
+import org.bimserver.cobie.shared.utility.Zipper;
+import org.bimserver.models.ifc2x3tc1.IfcSpace;
 
 public class ImageMapWriter extends TemplateWriter
 {
@@ -93,9 +92,22 @@ public class ImageMapWriter extends TemplateWriter
             
             for (String triangleID : triangles.keySet())
             {
-            	List<String> otherIDs = triangleIDs.stream().filter(t ->  !(t.equals(triangleID))).collect(Collectors.toList());
-            	String  relTag = otherIDs.stream().map(s ->s)
-                        .collect(Collectors.joining(","));
+            	List<String> otherIDs = new ArrayList<String>();
+            	for (String tid : triangleIDs) {
+            		if (tid.equals(triangleID)) {
+            			otherIDs.add(tid);
+            		}
+            	}
+            	StringBuilder str = new StringBuilder();
+            	for (int i=0; i<otherIDs.size(); i++) {
+            		if (i + 1 == otherIDs.size()) {
+            			str.append(otherIDs.get(i));
+            		} else {
+            			str.append(otherIDs.get(i) + ",");
+            		}
+            	}
+            	
+            	String  relTag = str.toString();
             	String areaTemplate = getTemplate();
                 areaTemplate = areaTemplate.replace(Pattern.ID.toString(), triangleID);
                 areaTemplate = areaTemplate.replace(Pattern.CLASS.toString(), getSpace().getName());
