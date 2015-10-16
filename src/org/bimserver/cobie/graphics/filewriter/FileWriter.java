@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.bimserver.cobie.graphics.SettingsUser;
 import org.bimserver.cobie.graphics.settings.GlobalSettings;
-import org.bimserver.cobie.shared.utility.Zipper;
+import org.bimserver.plugins.VirtualFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,5 +30,5 @@ public abstract class FileWriter implements SettingsUser
     }
 
     public abstract void write() throws IOException;
-    public abstract void write(Zipper zipper) throws IOException;
+    public abstract void write(VirtualFile virtualFile) throws IOException;
 }

@@ -1,8 +1,7 @@
 package org.bimserver.cobie.graphics.filewriter;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.commons.codec.Charsets;
 import org.bimserver.cobie.graphics.COBieColor;
 import org.bimserver.cobie.graphics.EntitySetting;
 import org.bimserver.cobie.graphics.entities.Floor;
@@ -24,8 +24,8 @@ import org.bimserver.cobie.graphics2d.Triangle;
 import org.bimserver.cobie.shared.Common;
 import org.bimserver.cobie.shared.utility.COBieIfcUtility;
 import org.bimserver.cobie.shared.utility.StringUtils;
-import org.bimserver.cobie.shared.utility.Zipper;
 import org.bimserver.models.ifc2x3tc1.IfcSpace;
+import org.bimserver.plugins.VirtualFile;
 
 public class ImageMapWriter extends TemplateWriter
 {
@@ -152,9 +152,9 @@ public class ImageMapWriter extends TemplateWriter
 
     private Floor floor;
 
-    public ImageMapWriter(Floor floor, GlobalSettings settings)
+    public ImageMapWriter(Path rootPath, Floor floor, GlobalSettings settings)
     {
-        super(settings);
+        super(rootPath, settings);
         this.floor = floor;
     }
 
@@ -186,28 +186,22 @@ public class ImageMapWriter extends TemplateWriter
     }
 
     @Override
-    public void write(Zipper zipper) throws IOException
+    public void write(VirtualFile virtualFile) throws IOException
     {
-        writeImageMap(zipper);
-        writeImageMapKey(zipper);
+        writeImageMap(virtualFile);
+        writeImageMapKey(virtualFile);
     }
 
-    private void writeImageMap(Zipper zipper) throws IOException
+    private void writeImageMap(VirtualFile virtualFile) throws IOException
     {
     	FileInfo htmlInfo = getSettings().getOutputSettings().getHtmlInfo();
-        File mapFile = new File(getFloor().getFileName(htmlInfo.getExtension()));
-        writeImageMapHtml(mapFile);
 
-        if (zipper != null)
-        {
-            zipper.addEntry(mapFile, htmlInfo.path + mapFile.getPath(), true);
-        }
+        virtualFile.createFile(htmlInfo.path + getFloor().getFileName(htmlInfo.getExtension())).setData(writeImageMapHtml());
     }
 
-    private void writeImageMapHtml(File mapFile) throws IOException
+    private byte[] writeImageMapHtml() throws IOException
     {
     	FileInfo imageInfo = getSettings().getOutputSettings().getImageInfo();
-        FileWriter fileWriter = new FileWriter(mapFile);
 
         String imageFileName = 
                 OutputSettings.PARENT_DIRECTORY + 
@@ -234,11 +228,10 @@ public class ImageMapWriter extends TemplateWriter
 
         template = template.replace(Pattern.AREAS.toString(), areas);
 
-        fileWriter.write(template);
-        fileWriter.close();
+        return template.getBytes(Charsets.UTF_8);
     }
 
-    private void writeImageMapKey(Zipper zipper) throws IOException
+    private void writeImageMapKey(VirtualFile virtualFile) throws IOException
     {
     	FileInfo htmlInfo = getSettings().getOutputSettings().getHtmlInfo();
         String mapKeyFileName = getFloor().getFileName(htmlInfo.getExtension());
@@ -247,18 +240,11 @@ public class ImageMapWriter extends TemplateWriter
         					Common.FILE_EXTENSION_PREFIX.toString(), 
         					Default.DEFAULT_KEY_POSTFIX.toString() + Common.FILE_EXTENSION_PREFIX.toString());
 
-        File mapKeyFile = new File(mapKeyFileName);
-        writeImageMapKeyHtml(mapKeyFile);
-
-        if (zipper != null)
-        {
-            zipper.addEntry(mapKeyFile, htmlInfo.path + mapKeyFile.getPath(), true);
-        }
+        virtualFile.createFile(htmlInfo.path + mapKeyFileName).setData(writeImageMapKeyHtml());
     }
 
-    private void writeImageMapKeyHtml(File mapKeyFile) throws IOException
+    private byte[] writeImageMapKeyHtml() throws IOException
     {
-        FileWriter fileWriter = new FileWriter(mapKeyFile);
         String template = getTemplate(Resource.KEY);
         String keys = Common.EMPTY_STRING.toString();
 
@@ -287,7 +273,6 @@ public class ImageMapWriter extends TemplateWriter
 
         template = template.replace(Pattern.KEY_INFOS.toString(), keys);
 
-        fileWriter.write(template);
-        fileWriter.close();
+        return template.getBytes(Charsets.UTF_8);
     }
 }

@@ -5,13 +5,11 @@ import java.util.Map;
 
 import javax.vecmath.Color3f;
 
-import org.bimserver.emf.IfcModelInterface;
-import org.bimserver.models.ifc2x3tc1.IfcProduct;
-import org.bimserver.cobie.graphics.Parser;
 import org.bimserver.cobie.graphics.Engine;
 import org.bimserver.cobie.graphics.EngineUser;
 import org.bimserver.cobie.graphics.EntitySetting;
 import org.bimserver.cobie.graphics.InvalidMeshException;
+import org.bimserver.cobie.graphics.Parser;
 import org.bimserver.cobie.graphics.Selector;
 import org.bimserver.cobie.graphics.settings.GlobalSettings;
 import org.bimserver.cobie.graphics.settings.OutputSettings;
@@ -20,6 +18,8 @@ import org.bimserver.cobie.graphics2d.RenderData2D;
 import org.bimserver.cobie.graphics2d.Stroke;
 import org.bimserver.cobie.graphics3d.RenderData3D;
 import org.bimserver.cobie.graphics3d.Utils;
+import org.bimserver.emf.IfcModelInterface;
+import org.bimserver.models.ifc2x3tc1.IfcProduct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

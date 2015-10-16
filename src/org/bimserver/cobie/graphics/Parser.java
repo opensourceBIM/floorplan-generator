@@ -10,11 +10,11 @@ import javax.media.j3d.Transform3D;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
+import org.bimserver.cobie.graphics.string.Default;
+import org.bimserver.cobie.shared.utility.CollectionUtils;
 import org.bimserver.geometry.Matrix;
 import org.bimserver.models.geometry.GeometryData;
 import org.bimserver.models.ifc2x3tc1.IfcProduct;
-import org.bimserver.cobie.graphics.string.Default;
-import org.bimserver.cobie.shared.utility.CollectionUtils;
 
 /**
  * Parses an {@code IfcProduct} into a renderable COBie object.

@@ -1,4 +1,6 @@
 <project name="Common">
+	<property name="bimserver" value="C:\Git\BIMserver2"></property>
+	<property name="cobie" value="C:\Git\COBie-plugins"></property>
 	<import file="one-jar-ant-task.xml" />
 	<fileset id="lib" dir="../../BimServerLib">
 		<include name="dep/*.jar" />
@@ -8,21 +10,21 @@
 	<fileset id="buildlib" dir="builds/lib">
 		<include name="**/*.jar" />
 	</fileset>
-	<fileset id="lib" dir="../../BimServer">
+	<fileset id="lib" dir="${bimserver}/BimServer">
 			<include name="**/*.jar" />
 			<exclude name="**tomcat*"/>
 		</fileset>
-	<fileset id="sharedlib" dir="../../Shared">
+	<fileset id="sharedlib" dir="${bimserver}/Shared">
 			<include name="**/*.jar" />
 		</fileset>
 	<target name="COBieShared">
 		<mkdir dir="builds/cobieshared" />
 		<mkdir dir="builds/cobieshared/lib" />
 		<copy todir="builds/cobieshared/lib">
-			<fileset dir="../../COBieShared/lib" />
+			<fileset dir="${cobie}/COBieShared/lib" />
 		</copy>
 		<copy todir="builds/lib">
-			<fileset dir="../../COBieShared/lib" />
+			<fileset dir="${cobie}/COBieShared/lib" />
 		</copy>
 		 <pathconvert pathsep="${line.separator}|   |-- "             
 					        property="echo.path.compile"             
@@ -40,7 +42,7 @@
 					    </pathconvert>
 					    <echo>${echo.path.compilesharedother}</echo>
 		<javac destdir="builds/cobieshared" debug="on" includeantruntime="true">
-			<src path="../../COBieShared/src" />
+			<src path="${cobie}/COBieShared/src" />
 			<classpath>
 				<path>
 					<fileset refid="sharedlib" />
@@ -60,7 +62,7 @@
 			<mkdir dir="builds/floorplangenerator" />
 			<javac destdir="builds/floorplangenerator" includeantruntime="false" debug="on">
 				<src path="../../floorplan-generator/src" />
-				<src path="../../COBieShared/src" />
+				<src path="${cobie}/COBieShared/src" />
 				<classpath>
 					<path>
 						<fileset dir="../../floorplan-generator/lib" />
@@ -72,7 +74,7 @@
 						
 					</path>
 					<path>
-						<fileset dir="../../COBieShared/lib" />
+						<fileset dir="${cobie}/COBieShared/lib" />
 					</path>
 				</classpath>
 			</javac>
@@ -105,7 +107,7 @@
 		</copy>
 		
 			<copy todir="builds/floorplangenerator/lib">
-				<fileset dir="../../COBieShared/lib" />
+				<fileset dir="${cobie}/COBieShared/lib" />
 			</copy>
 			<mkdir dir="builds/floorplangenerator/plugin" />
 			<copy todir="builds/floorplangenerator/plugin">
@@ -120,10 +122,10 @@
 	<target name="Shared">
 			<mkdir dir="builds/shared" />
 			<javac destdir="builds/shared" debug="on" includeantruntime="false">
-				<src path="../../Shared/src" />
-				<src path="../../Shared/generated" />
+				<src path="${bimserver}/Shared/src" />
+				<src path="${bimserver}/Shared/generated" />
 				<classpath>
-					<pathelement location="../../Shared/genclasses"/>
+					<pathelement location="${bimserver}/Shared/genclasses"/>
 					<path>
 						<fileset refid="sharedlib" />
 						<fileset refid="lib" />
@@ -132,20 +134,20 @@
 				</classpath>
 			</javac>
 			<copy todir="builds/shared/org/bimserver/shared/interfaces">
-				<fileset dir="../../Shared/src/org/bimserver/shared/interfaces">
+				<fileset dir="${bimserver}/Shared/src/org/bimserver/shared/interfaces">
 					<include name="*.java"/>
 				</fileset>
 			</copy>
 			<copy todir="builds/shared">
-				<fileset dir="../../Shared/genclasses"></fileset>
+				<fileset dir="${bimserver}/Shared/genclasses"></fileset>
 			</copy>
-			<copy file="../../Shared/generated/org/bimserver/models/ifc2x3tc1/impl/ifc2x3tc1.ecore" todir="builds/shared/org/bimserver/models/ifc2x3tc1/impl" />
-			<copy file="../../Shared/generated/org/bimserver/models/store/impl/store.ecore" todir="builds/shared/org/bimserver/models/store/impl" />
-			<copy file="../../Shared/generated/org/bimserver/models/log/impl/log.ecore" todir="builds/shared/org/bimserver/models/log/impl" />
-			<copy file="../../Shared/generated/org/bimserver/models/geometry/impl/geometry.ecore" todir="builds/shared/org/bimserver/models/geometry/impl" />
-			<copy file="../../Shared/generated/org/bimserver/models/ifc4/impl/ifc4.ecore" todir="builds/shared/org/bimserver/models/ifc4/impl" />
+			<copy file="${bimserver}/Shared/generated/org/bimserver/models/ifc2x3tc1/impl/ifc2x3tc1.ecore" todir="builds/shared/org/bimserver/models/ifc2x3tc1/impl" />
+			<copy file="${bimserver}/Shared/generated/org/bimserver/models/store/impl/store.ecore" todir="builds/shared/org/bimserver/models/store/impl" />
+			<copy file="${bimserver}/Shared/generated/org/bimserver/models/log/impl/log.ecore" todir="builds/shared/org/bimserver/models/log/impl" />
+			<copy file="${bimserver}/Shared/generated/org/bimserver/models/geometry/impl/geometry.ecore" todir="builds/shared/org/bimserver/models/geometry/impl" />
+			<copy file="${bimserver}/Shared/generated/org/bimserver/models/ifc4/impl/ifc4.ecore" todir="builds/shared/org/bimserver/models/ifc4/impl" />
 			<copy todir="builds/shared/org/bimserver/shared/interfaces/bimsie1">
-				<fileset dir="../../Shared/src/org/bimserver/shared/interfaces/bimsie1">
+				<fileset dir="${bimserver}/Shared/src/org/bimserver/shared/interfaces/bimsie1">
 					<include name="*.java"/>
 				</fileset>
 			</copy>
@@ -156,7 +158,7 @@
 	<target name="Ifc">
 			<mkdir dir="builds/ifc" />
 			<javac destdir="builds/ifc" debug="on" includeantruntime="false">
-				<src path="../../Ifc/src" />
+				<src path="${bimserver}/Ifc/src" />
 				<classpath>
 					<path>
 						<fileset refid="sharedlib" />
@@ -172,7 +174,7 @@
 	<target name="BimServerClientLib">
 			<mkdir dir="builds/bimserverclientlib" />
 			<javac destdir="builds/bimserverclientlib" debug="on" fork="false" includeantruntime="false">
-				<src path="../../BimServerClientLib/src" />
+				<src path="${bimserver}/BimServerClientLib/src" />
 				<classpath>
 					<path>
 						<fileset refid="sharedlib" />
@@ -182,7 +184,7 @@
 				</classpath>
 			</javac>
 			<copy todir="builds/bimserverclientlib/org/bimserver/client/protocolbuffers">
-				<fileset dir="../../BimServerClientLib/src/org/bimserver/client/protocolbuffers">
+				<fileset dir="${bimserver}/BimServerClientLib/src/org/bimserver/client/protocolbuffers">
 					<include name="*.desc"/>
 					<include name="*.proto"/>
 				</fileset>

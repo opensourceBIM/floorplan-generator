@@ -3,9 +3,9 @@ package org.bimserver.cobie.graphics.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bimserver.cobie.graphics.Engine;
 import org.bimserver.emf.IfcModelInterface;
 import org.bimserver.models.ifc2x3tc1.IfcBuilding;
-import org.bimserver.cobie.graphics.Engine;
 
 public final class Facility extends RenderableSpatialStructureBranch
 {

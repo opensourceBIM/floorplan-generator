@@ -1,10 +1,10 @@
 package org.bimserver.cobie.graphics.entities;
 
-import org.bimserver.emf.IfcModelInterface;
-import org.bimserver.models.ifc2x3tc1.IfcSpace;
 import org.bimserver.cobie.graphics.Engine;
 import org.bimserver.cobie.graphics.InvalidMeshException;
 import org.bimserver.cobie.graphics3d.Utils;
+import org.bimserver.emf.IfcModelInterface;
+import org.bimserver.models.ifc2x3tc1.IfcSpace;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 

@@ -3,14 +3,14 @@ package org.bimserver.cobie.graphics.filewriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.json.JSON;
-import net.sf.json.xml.XMLSerializer;
-
 import org.bimserver.cobie.shared.serialization.COBieTabSerializer;
 import org.bimserver.cobie.shared.transform.cobietab.cobielite.FacilityFactory;
 import org.bimserver.emf.IfcModelInterface;
 import org.buildingsmartalliance.docs.nbims03.cobie.cobielite.FacilityDocument;
 import org.nibs.cobie.tab.COBIEDocument;
+
+import net.sf.json.JSON;
+import net.sf.json.xml.XMLSerializer;
 
 
 public class JSONFactory

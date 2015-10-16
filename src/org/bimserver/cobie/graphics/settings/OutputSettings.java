@@ -1,10 +1,5 @@
 package org.bimserver.cobie.graphics.settings;
 
-import java.io.File;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bimserver.cobie.graphics.string.Default;
 import org.bimserver.cobie.shared.Common;
 import org.bimserver.cobie.shared.utility.StringUtils;
@@ -90,7 +85,6 @@ public class OutputSettings extends Settings
 
 	public static int defaultFileNamesUsed = 0;
 
-	private Map<String, File> resourceFiles = new HashMap<String, File>();
 	private final FileInfo htmlInfo;
 	private final FileInfo imageInfo;
 	private final FileInfo jsonInfo;
@@ -117,7 +111,6 @@ public class OutputSettings extends Settings
 		this.stylesInfo = stylesInfo;
 		this.templateInfo = templateInfo;
 		this.jsonInfo = jsonInfo;
-		System.out.println("Scripts are in "+ new File(scriptsInfo.path).getAbsolutePath());
 	}
 
 	public final FileInfo getHtmlInfo()
@@ -135,37 +128,6 @@ public class OutputSettings extends Settings
 		return jsonInfo;
 	}
 
-	/**
-	 * Gets the resource that matches the supplied {@code URI}.
-	 * 
-	 * NOTE: This method makes a "best guess" to find the correct resource, because
-	 * the resources are actually stored with absolute paths. This should only be a
-	 * problem for very unusual cases.
-	 * 
-	 * @param relativePath The relative {@code URI} of the {@code File} to retrieve.
-	 * @return The {@code File} that matches the supplied {@code URI}.
-	 */
-	public File getResource(URI relativePath)
-	{
-		File matchingFile = null;
-
-		for (String key : getResources().keySet())
-		{
-			if (key.contains(relativePath.toString()))
-			{
-				matchingFile = getResources().get(key);
-				break;
-			}
-		}
-
-		return matchingFile;
-	}
-
-	public final Map<String, File> getResources()
-	{
-		return resourceFiles;
-	}
-
 	public final FileInfo getScriptInfo()
 	{
 		return scriptsInfo;
@@ -179,10 +141,5 @@ public class OutputSettings extends Settings
 	public final FileInfo getTemplateInfo()
 	{
 		return templateInfo;
-	}
-	
-	public final void setResourceFiles(Map<String, File> resources)
-	{
-		this.resourceFiles = resources;
 	}
 }

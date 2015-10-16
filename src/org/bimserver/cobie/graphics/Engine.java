@@ -2,7 +2,7 @@ package org.bimserver.cobie.graphics;
 
 import java.awt.Canvas;
 import java.awt.GraphicsConfiguration;
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.EnumSet;
 
@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import org.bimserver.cobie.graphics.settings.GlobalSettings;
 import org.bimserver.cobie.graphics.settings.RenderSettings;
 import org.bimserver.cobie.graphics.string.Default;
-import org.bimserver.cobie.shared.utility.Zipper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -146,19 +145,20 @@ public abstract class Engine implements SettingsUser
      * @param zipper
      * @throws IOException
      */
-    public void renderToArchive(String path, Zipper zipper) throws IOException
-    {
-        zipper.addEntry(renderToFile(path), getSettings().getOutputSettings().getImageInfo().path + path, true);
-    }
+//    public byte[] renderToArchive(String path) throws IOException
+//    {
+//    	VirtualFile file = virtualFile.createFile(getSettings().getOutputSettings().getImageInfo().path + path);
+//    	file.setData(renderToFile(path));
+//    }
 
-    public File renderToFile(String path)
+    public byte[] renderToFile(String path)
     {
-        File outputFile = new File(path);
-
         try
         {
-            ImageIO.write(getCanvas().write(), getSettings().getOutputSettings().getImageInfo().format, outputFile);
-            getLogger().info(Default.FILE_RENDER_SUCCEEDED.format(outputFile.getName()));
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+			ImageIO.write(getCanvas().write(), getSettings().getOutputSettings().getImageInfo().format, output);
+            getLogger().info(Default.FILE_RENDER_SUCCEEDED.format(path));
+            return output.toByteArray();
         }
 
         catch (IOException e)
@@ -166,7 +166,7 @@ public abstract class Engine implements SettingsUser
             getLogger().error(Default.FILE_RENDER_FAILED.format(path));
         }
 
-        return outputFile;
+        return null;
     }
 
     public void renderToFrame()

@@ -1,8 +1,9 @@
 package org.bimserver.cobie.graphics.filewriter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.bimserver.cobie.graphics.entities.Facility;
 import org.bimserver.cobie.graphics.settings.GlobalSettings;
@@ -11,15 +12,17 @@ import org.bimserver.cobie.graphics.settings.OutputSettings.FileInfo;
 import org.bimserver.cobie.graphics.settings.OutputSettings.NamedFileInfo;
 import org.bimserver.cobie.graphics.string.Pattern;
 import org.bimserver.cobie.shared.Common;
-import org.bimserver.cobie.shared.utility.Zipper;
+import org.bimserver.plugins.VirtualFile;
+
+import com.google.common.base.Charsets;
 
 public class FacilityWriter extends TemplateWriter
 {	
 	private final Facility facility;
 
-    public FacilityWriter(Facility facility, GlobalSettings settings)
+    public FacilityWriter(Path rootPath, Facility facility, GlobalSettings settings)
     {
-        super(settings);
+        super(rootPath, settings);
         this.facility = facility;
     }
 
@@ -35,16 +38,12 @@ public class FacilityWriter extends TemplateWriter
     }
 
     @Override
-    public void write(Zipper zipper) throws IOException
+    public void write(VirtualFile virtualFile) throws IOException
     {
     	FileInfo htmlInfo = getSettings().getOutputSettings().getHtmlInfo();
         File index = new File(getFacility().getFileName(htmlInfo.getExtension()));
-        writeHtml(index);
 
-        if (zipper != null)
-        {
-            zipper.addEntry(index, htmlInfo.path + index.getPath(), true);
-        }
+        virtualFile.createFile(htmlInfo.path + index.getPath()).setData(writeHtml());
     }
 
     private String writeDimensions(String template)
@@ -60,15 +59,16 @@ public class FacilityWriter extends TemplateWriter
         return html;
     }
 
-    private void writeHtml(File indexFile) throws IOException
+    private byte[] writeHtml() throws IOException
     {       
-        FileWriter fileWriter = new FileWriter(indexFile);
         String htmlBuffer = getTemplate(Resource.FLOORMAP_DEMO);
         htmlBuffer = writeTitle(htmlBuffer);
         htmlBuffer = writeDimensions(htmlBuffer);
         htmlBuffer = writeJSON(htmlBuffer);
-        fileWriter.write(htmlBuffer);
-        fileWriter.close();
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        baos.write(htmlBuffer.getBytes(Charsets.UTF_8));
+        return baos.toByteArray();
     }
 
     private String writeJSON(String template)

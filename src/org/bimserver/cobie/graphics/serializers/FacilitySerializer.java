@@ -1,17 +1,15 @@
 package org.bimserver.cobie.graphics.serializers;
 
 import java.awt.Dimension;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Map;
 
-import org.bimserver.emf.IfcModelInterface;
-import org.bimserver.models.ifc2x3tc1.IfcBuilding;
-import org.bimserver.models.ifc2x3tc1.IfcProduct;
-import org.bimserver.plugins.serializers.SerializerException;
 import org.bimserver.cobie.graphics.Engine;
 import org.bimserver.cobie.graphics.EngineSelector;
 import org.bimserver.cobie.graphics.EngineUser;
@@ -25,7 +23,6 @@ import org.bimserver.cobie.graphics.filewriter.FacilityWriter;
 import org.bimserver.cobie.graphics.filewriter.ImageMapWriter;
 import org.bimserver.cobie.graphics.filewriter.IndexWriter;
 import org.bimserver.cobie.graphics.filewriter.JSONWriter;
-import org.bimserver.cobie.graphics.filewriter.ResourceWriter;
 import org.bimserver.cobie.graphics.settings.FontSettings;
 import org.bimserver.cobie.graphics.settings.GlobalSettings;
 import org.bimserver.cobie.graphics.settings.MaterialSettings;
@@ -38,20 +35,27 @@ import org.bimserver.cobie.graphics.string.Default;
 import org.bimserver.cobie.graphics3d.Capability;
 import org.bimserver.cobie.graphics3d.CullMode;
 import org.bimserver.cobie.graphics3d.FillMode;
-import org.bimserver.cobie.shared.utility.Zipper;
+import org.bimserver.emf.IfcModelInterface;
+import org.bimserver.models.ifc2x3tc1.IfcBuilding;
+import org.bimserver.models.ifc2x3tc1.IfcProduct;
+import org.bimserver.plugins.VirtualFile;
+import org.bimserver.plugins.serializers.SerializerException;
+import org.bimserver.utils.PathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FacilitySerializer implements EngineUser
 {
-    private Engine engine;
+	private static final RenderSettings renderSettings;
+	private static final PolygonSettings polygonAttributes;
+	private static final GlobalSettings settings;
+
+	private final IfcModelInterface model;
+
+	private Engine engine;
     private Facility facility;
-    private final IfcModelInterface model;
-    private final Zipper zipper;
-    
-    private static final RenderSettings renderSettings;
-    private static final PolygonSettings polygonAttributes;
-    private static final GlobalSettings settings;
+	private OutputStream outputStream;
+	private Path rootPath;
 
     static
     {
@@ -69,13 +73,11 @@ public class FacilitySerializer implements EngineUser
         settings = new GlobalSettings(new FontSettings(), new MaterialSettings(), new OutputSettings(), polygonAttributes, renderSettings);
     }
 
-    public FacilitySerializer(Map<String, File> resources, IfcModelInterface model, Zipper zipper)
+    public FacilitySerializer(Path rootPath, IfcModelInterface model, OutputStream outputStream)
 	{
-    	this.model = model;
-    	this.zipper = zipper;
-    	
-    	// TODO At least some of these should be set via BimServer.
-    	settings.getOutputSettings().setResourceFiles(resources);
+    	this.rootPath = rootPath;
+		this.model = model;
+		this.outputStream = outputStream;
 	}
     
     private void addToCanvas(List<? extends RenderableIfcProduct> products)
@@ -128,11 +130,6 @@ public class FacilitySerializer implements EngineUser
         return getEngine().getSettings();
     }
     
-    private final Zipper getZipper()
-    {
-        return zipper;
-    }
-  	    
     // TODO Rendering should probably be done in RenderData2D.
     private void renderFloor(Floor floor) throws IOException
     {
@@ -152,7 +149,7 @@ public class FacilitySerializer implements EngineUser
     	
     	// TODO Probably should sort entities w/ painter's algorithm before adding to canvas, but it seems to work.
         addToCanvas(renderableEntities);
-        getEngine().renderToArchive(floor.getFileName(settings.getOutputSettings().getImageInfo().getExtension()), getZipper());
+        getEngine().renderToFile(floor.getFileName(settings.getOutputSettings().getImageInfo().getExtension()));
     }
     
     public void write() throws SerializerException
@@ -161,10 +158,11 @@ public class FacilitySerializer implements EngineUser
     	
         try
         {
-            writeFacilityHTML();
-            writeIndexHTML();
-            writeResources();
-            writeJSON();
+        	VirtualFile virtualFile = new VirtualFile();
+            writeFacilityHTML(virtualFile);
+            writeIndexHTML(virtualFile);
+            writeResources(virtualFile);
+            writeJSON(virtualFile);
             
             for (RenderableIfcProduct branch : getFacility().getBranches())
             {
@@ -176,13 +174,13 @@ public class FacilitySerializer implements EngineUser
                     {
                         arrangeFloor(floor);
                         renderFloor(floor);
-                        writeHTMLMap(floor);
+                        writeHTMLMap(virtualFile, floor);
                         getEngine().clearCanvas();
                     }
                 }
             }
 
-            getZipper().writeZipArchive();
+            virtualFile.createJar(outputStream);
         }
 
         catch (IOException e)
@@ -191,33 +189,45 @@ public class FacilitySerializer implements EngineUser
         }
     }
     
-    private void writeFacilityHTML() throws IOException
+    private void writeFacilityHTML(VirtualFile virtualFile) throws IOException
     {
-        FacilityWriter facilityWriter = new FacilityWriter(getFacility(), settings);
-        facilityWriter.write(getZipper());
+        FacilityWriter facilityWriter = new FacilityWriter(rootPath, getFacility(), settings);
+        facilityWriter.write(virtualFile);
     }
 
-    private void writeIndexHTML() throws IOException
+    private void writeIndexHTML(VirtualFile virtualFile) throws IOException
     {
-        IndexWriter indexWriter = new IndexWriter(getFacility(), settings);
-        indexWriter.write(getZipper());
+        IndexWriter indexWriter = new IndexWriter(rootPath, getFacility(), settings);
+        indexWriter.write(virtualFile);
     }
     
-    private void writeJSON() throws IOException
+    private void writeJSON(VirtualFile virtualFile) throws IOException
     {
         JSONWriter jsonWriter = new JSONWriter(model, settings);
-        jsonWriter.write(getZipper());
+        jsonWriter.write(virtualFile);
     }
     
-    private void writeHTMLMap(Floor floor) throws IOException
+    private void writeHTMLMap(VirtualFile virtualFile, Floor floor) throws IOException
     {
-        ImageMapWriter imageMapWriter = new ImageMapWriter(floor, settings);
-        imageMapWriter.write(getZipper());
+        ImageMapWriter imageMapWriter = new ImageMapWriter(rootPath, floor, settings);
+        imageMapWriter.write(virtualFile);
+    }
+
+    private void copyDirectory(Path path, VirtualFile virtualFile) throws IOException {
+    	if (Files.isDirectory(path)) {
+    		for (Path p : PathUtils.list(path)) {
+   				copyDirectory(p, virtualFile);
+    		}
+    	} else {
+			InputStream inputStream = Files.newInputStream(path);
+			virtualFile.createFile(path.toString()).setData(inputStream);
+    	}
     }
     
-    private void writeResources() throws IOException
+    private void writeResources(VirtualFile virtualFile) throws IOException
     {
-        ResourceWriter resourceWriter = new ResourceWriter(settings);
-        resourceWriter.write(getZipper());
+    	copyDirectory(rootPath.resolve("scripts"), virtualFile);
+    	copyDirectory(rootPath.resolve("styles"), virtualFile);
+    	copyDirectory(rootPath.resolve("html"), virtualFile);
     }
 }

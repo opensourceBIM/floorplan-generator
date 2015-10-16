@@ -2,8 +2,8 @@ package org.bimserver.cobie.graphics;
 
 import javax.vecmath.Color3f;
 
-import org.bimserver.models.ifc2x3tc1.IfcProduct;
 import org.bimserver.cobie.graphics2d.Stroke;
+import org.bimserver.models.ifc2x3tc1.IfcProduct;
 
 public class EntitySetting
 {

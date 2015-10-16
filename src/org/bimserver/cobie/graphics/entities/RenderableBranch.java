@@ -3,6 +3,10 @@ package org.bimserver.cobie.graphics.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bimserver.cobie.graphics.Engine;
+import org.bimserver.cobie.graphics.InvalidMeshException;
+import org.bimserver.cobie.graphics3d.MeshAggregator;
+import org.bimserver.cobie.shared.utility.CollectionUtils;
 import org.bimserver.emf.IfcModelInterface;
 import org.bimserver.models.ifc2x3tc1.IfcBuildingStorey;
 import org.bimserver.models.ifc2x3tc1.IfcCovering;
@@ -23,10 +27,6 @@ import org.bimserver.models.ifc2x3tc1.IfcStair;
 import org.bimserver.models.ifc2x3tc1.IfcStairFlight;
 import org.bimserver.models.ifc2x3tc1.IfcWall;
 import org.bimserver.models.ifc2x3tc1.IfcWindow;
-import org.bimserver.cobie.graphics.Engine;
-import org.bimserver.cobie.graphics.InvalidMeshException;
-import org.bimserver.cobie.graphics3d.MeshAggregator;
-import org.bimserver.cobie.shared.utility.CollectionUtils;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 

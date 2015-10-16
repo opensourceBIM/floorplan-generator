@@ -1,21 +1,19 @@
 package org.bimserver.cobie.graphics.serializers;
 
-import java.io.File;
 import java.io.OutputStream;
-import java.util.Map;
+import java.nio.file.Path;
 
 import org.bimserver.plugins.serializers.AbstractGeometrySerializer;
 import org.bimserver.plugins.serializers.ProgressReporter;
 import org.bimserver.plugins.serializers.SerializerException;
-import org.bimserver.cobie.shared.utility.Zipper;
 
 public class COBieFloorMapSerializer extends AbstractGeometrySerializer
 {	    
-	private final Map<String, File> resources;
+	private Path rootPath;
 	
-    public COBieFloorMapSerializer(Map<String, File> resources)
+    public COBieFloorMapSerializer(Path rootPath)
     {
-    	this.resources = resources;
+    	this.rootPath = rootPath;
     }
 
     @Override
@@ -25,11 +23,10 @@ public class COBieFloorMapSerializer extends AbstractGeometrySerializer
     }
 
 	@Override
-	protected boolean write(OutputStream outputStream,
-			ProgressReporter progressReporter) throws SerializerException 
+	protected boolean write(OutputStream outputStream, ProgressReporter progressReporter) throws SerializerException 
 	{
 		boolean rval = false;
-        FacilitySerializer writer = new FacilitySerializer(resources, getModel(), new Zipper(outputStream));
+        FacilitySerializer writer = new FacilitySerializer(rootPath, getModel(), outputStream);
         
         if (getMode() != Mode.FINISHED)
         {

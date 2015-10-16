@@ -7,6 +7,13 @@ import java.util.List;
 
 import javax.vecmath.Color3f;
 
+import org.bimserver.cobie.graphics.COBieColor;
+import org.bimserver.cobie.graphics.EntitySetting;
+import org.bimserver.cobie.graphics.RenderMode;
+import org.bimserver.cobie.graphics.Selector;
+import org.bimserver.cobie.graphics2d.CapMode;
+import org.bimserver.cobie.graphics2d.JoinMode;
+import org.bimserver.cobie.graphics2d.Stroke;
 import org.bimserver.models.ifc2x3tc1.IfcBuilding;
 import org.bimserver.models.ifc2x3tc1.IfcBuildingStorey;
 import org.bimserver.models.ifc2x3tc1.IfcDoor;
@@ -24,13 +31,6 @@ import org.bimserver.models.ifc2x3tc1.IfcStair;
 import org.bimserver.models.ifc2x3tc1.IfcStairFlight;
 import org.bimserver.models.ifc2x3tc1.IfcWall;
 import org.bimserver.models.ifc2x3tc1.IfcWindow;
-import org.bimserver.cobie.graphics.COBieColor;
-import org.bimserver.cobie.graphics.EntitySetting;
-import org.bimserver.cobie.graphics.RenderMode;
-import org.bimserver.cobie.graphics.Selector;
-import org.bimserver.cobie.graphics2d.CapMode;
-import org.bimserver.cobie.graphics2d.JoinMode;
-import org.bimserver.cobie.graphics2d.Stroke;
 
 public class RenderSettings extends Settings implements Selector<RenderSettings2D, RenderSettings3D>
 {

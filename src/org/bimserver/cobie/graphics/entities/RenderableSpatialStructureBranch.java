@@ -2,11 +2,11 @@ package org.bimserver.cobie.graphics.entities;
 
 import java.util.List;
 
+import org.bimserver.cobie.graphics.Engine;
 import org.bimserver.emf.IfcModelInterface;
 import org.bimserver.models.ifc2x3tc1.IfcProduct;
 import org.bimserver.models.ifc2x3tc1.IfcRelContainedInSpatialStructure;
 import org.bimserver.models.ifc2x3tc1.IfcSpatialStructureElement;
-import org.bimserver.cobie.graphics.Engine;
 
 public abstract class RenderableSpatialStructureBranch extends RenderableBranch
 {
