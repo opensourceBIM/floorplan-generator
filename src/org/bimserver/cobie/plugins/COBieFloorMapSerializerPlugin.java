@@ -1,11 +1,15 @@
 package org.bimserver.cobie.plugins;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import org.bimserver.cobie.graphics.filewriter.Resource;
 import org.bimserver.cobie.graphics.filewriter.ResourceManager;
@@ -27,6 +31,7 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
     private PluginManager pluginManager;
     private ResourceManager resourceManager;
     private static String TMP_FOLDER = "FloorplanGenerator";
+
     @Override
     public Serializer createSerializer(PluginConfiguration plugin)
     {
@@ -119,7 +124,24 @@ public class COBieFloorMapSerializerPlugin extends AbstractSerializerPlugin impl
         {
             for (Resource resource : Resource.values())
             {
-                runtimeDependencies.add(resource.getRelativePath());
+            	if(resource == Resource.HTML_SCRIPTS_STYLES)
+            	{
+            		InputStream stream = this.pluginManager.getPluginContext(this).getResourceAsInputStream(resource.getRelativePath().toString());
+            		ZipInputStream zipFile = new ZipInputStream(stream);
+            		while(zipFile.available() !=0)
+            		{
+            			ZipEntry entry = zipFile.getNextEntry();
+            			if(entry != null && !entry.isDirectory())
+            			runtimeDependencies.add(new URI(entry.getName()));
+            		}
+            		zipFile.close();
+            		
+            	}
+            	else
+            	{
+            		runtimeDependencies.add(resource.getRelativePath());
+            	}
+                
             }
             
             resourceManager = new ResourceManager(

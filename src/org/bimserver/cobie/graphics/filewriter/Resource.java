@@ -11,14 +11,14 @@ public enum Resource
     INDEX("templates/index.template"),
     KEY("templates/key.template"), 
     KEY_INFO("templates/keyInfo.template"),
-    
+    HTML_SCRIPTS_STYLES("lib/FloorplanExportDependencies.zip");
     // Just need to copy these folders and their contents...
-    HTML("html"),
+   /* HTML("html"),
     SCRIPTS("scripts"),
-    STYLES("styles");
-
+    STYLES("styles");*/
+    
     private URI relativePath;
-
+    
     private Resource(String relativePath)
     {
         try
